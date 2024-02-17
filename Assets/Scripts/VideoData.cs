@@ -1,6 +1,7 @@
 using UnityEngine;
 
-public class VideoData : MonoBehaviour
+[CreateAssetMenu(fileName = "New Series", menuName = "Series")]
+public class VideoData : ScriptableObject
 {
     [SerializeField] private Texture2D _previewTexture;
     [SerializeField] private string _videoPath;

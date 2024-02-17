@@ -556,7 +556,7 @@ namespace RenderHeads.Media.AVProVideo
 		public MediaPathType PathType { get { return _pathType; } internal set { _pathType = value; } }
 
 		[SerializeField] string _path = string.Empty;
-		public string Path { get { return _path; } internal set { _path = value; } }
+		public string Path { get { return _path; } set { _path = value; } }
 
 		public MediaPath()
 		{

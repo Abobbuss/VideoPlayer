@@ -1,36 +1,47 @@
-using RenderHeads.Media.AVProVideo;
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class Preview : MonoBehaviour
 {
+    public event Action<VideoData> OnPreviewClickedEvent;
+
     [SerializeField] private RawImage _previewImagePrefab;
     [SerializeField] private Transform _previewContainer;
     [SerializeField] private VideoData[] _videoData;
 
-    void Start()
+    private VideoData _firstVideo;
+    private VideoData _currentVideo;
+    public VideoData FirstVideo => _firstVideo;
+
+    private void Start()
     {
         foreach (VideoData data in _videoData)
         {
             CreatePreview(data);
         }
+
+        _firstVideo = _videoData[_videoData.Length - 1];
+        _currentVideo = _firstVideo;
     }
 
-    void CreatePreview(VideoData data)
+    private void CreatePreview(VideoData data)
     {
         RawImage previewImage = Instantiate(_previewImagePrefab, _previewContainer);
         previewImage.texture = data.PreviewTexture;
 
-        // Добавляем слушатель нажатия на превью
         previewImage.GetComponent<Button>().onClick.AddListener(() =>
         {
-            OnPreviewClicked(data.VideoPath);
+            OnPreviewClicked(data);
         });
     }
 
-    void OnPreviewClicked(string videoPath)
+    private void OnPreviewClicked(VideoData data)
     {
-        Debug.Log("Path to video: " + videoPath);
-        // Здесь вы можете выполнить нужные действия при нажатии на превью, например, воспроизведение видео
+        if (data != _currentVideo)
+        {
+            _currentVideo = data;
+            OnPreviewClickedEvent?.Invoke(data);
+        }
     }
 }
