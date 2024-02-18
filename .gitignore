@@ -10,9 +10,7 @@
 # MemoryCaptures can get excessive in size.
 [Mm]emoryCaptures/
 
-# Asset meta data should only be ignored when the corresponding asset is also ignored
-!/[Aa]ssets/**/*.meta
-[Aa]ssets/**/*.meta
+
 [Aa]ssets/Тестовое
 
 # Uncomment if you wish to ignore the asset store tools plugin
